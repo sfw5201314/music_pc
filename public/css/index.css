@@ -13,17 +13,13 @@ a {
   align-items: center;
   width: 100%;
   height: 100vh;
-  /* background-color: red; */
   background: url("https://tc.miniwhite.top/images/123.jpg") no-repeat;
   background-position: center;
   background-size: cover;
 }
 
 .main {
-  min-width: 1150px;
-  /* height: 85vh; */
-  /* height: 768px; */
-  /* background-color: blue; */
+  width: 1200px;
   background-color: rgba(255, 255, 255, 0.2);
   position: relative;
   overflow: hidden;
@@ -31,46 +27,27 @@ a {
   z-index: 1;
 }
 
-/* .main ::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(255, 255, 255, 0.5);
-  background: url("https://tc.miniwhite.top/images/123.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  z-index: -1;
-  filter: blur(10px);
-  -webkit-filter: blur(10px);
-} */
-
 .header {
   display: flex;
   width: 100%;
   height: 10vh;
-  /* background-color: aqua; */
 }
 
 .header-left {
   width: 25%;
   height: 100%;
-  background-color: red;
 }
 
 .header-right {
   display: flex;
   width: 75%;
   height: 100%;
-  /* background-color: palevioletred; */
+  align-items: center;
 }
 
 .header-right .search {
   width: 65%;
-  height: 80%;
+  height: 45px;
   border-radius: 50px;
   margin: 10px 30px;
 }
@@ -78,13 +55,12 @@ a {
 .header-right label {
   width: 20px;
   height: 80px;
-  /* margin-left: -10px; */
+  cursor: pointer;
 }
 
 .header-right input {
   width: 85%;
   height: 80%;
-  /* border-radius: 50px; */
   padding: 0 5px;
   margin: 5px 15px;
   outline: none;
@@ -113,7 +89,6 @@ a {
   display: flex;
   width: 100%;
   height: 65vh;
-  /* background-color: pink; */
 }
 
 .music-control {
@@ -166,20 +141,19 @@ a {
 .mainRight-up {
   margin: 10px 0;
   height: 50%;
+  margin-right: 10px;
   /* background-color: red; */
 }
 
 .banner {
-  width: 100%;
+  max-width: 100%;
   height: 85%;
   text-align: center;
-  background-color: yellow;
   margin: 10px 0;
 }
 
 .mainRight-down {
   height: 45%;
-  /* background-color: blue; */
 }
 
 .recommend-list {
@@ -187,17 +161,14 @@ a {
   width: 100%;
   height: 85%;
   text-align: center;
-  /* background-color: yellow; */
+  flex-wrap: wrap;
+  overflow-x: auto;
+  justify-content: center;
 }
-
 .recommend-music {
-  /* width: 150px;
-  height: 150px;
-  max-width: 150px;
-  max-height: 150px; */
-  width: 20%;
-  height: 80%;
-  /* background-color: blue; */
+  /* width: 20%; */
+  max-width: 195px;
+  height: 82%;
   margin: 15px 10px;
   border-radius: 10px;
 }
@@ -212,7 +183,6 @@ a {
   display: flex;
   width: 300px;
   height: 100%;
-  /* background-color: red; */
 }
 
 .music-logo img {

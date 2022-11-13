@@ -10,9 +10,29 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+    "noImplicitAny": false,     //any报错
     "lib": ["esnext", "dom"],
-    "skipLibCheck": true
+    "suppressImplicitAnyIndexErrors": true,//允许字符串用作下标
+    "skipLibCheck": true,
+    
+     "baseUrl": "./",			//
+     "paths": {					//
+      "@/*":[					//
+        "src/*"					//
+      ]							//
+     }							//
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    },
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "*.ts"
+  ],
 }
