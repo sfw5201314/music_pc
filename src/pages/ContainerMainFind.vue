@@ -9,16 +9,18 @@
     <div>
       <h3>推荐歌单</h3>
     </div>
-    <div class="recommend-list">
-      <div
-        class="recommend-music"
-        v-for="item in rcmdMusicList"
-        :key="item?.id"
-      >
-        <img :src="item?.picUrl" :alt="item.name" />
-        <span>{{ item.name }}</span>
+    <el-scrollbar height="85%">
+      <div class="recommend-list">
+        <div
+          class="recommend-music"
+          v-for="item in rcmdMusicList"
+          :key="item?.id"
+        >
+          <img :src="item?.picUrl" :alt="item.name" />
+          <span>{{ item.name }}</span>
+        </div>
       </div>
-    </div>
+    </el-scrollbar>
   </div>
 </template>
 <script setup lang="ts">

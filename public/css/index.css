@@ -49,9 +49,15 @@ a {
   width: 65%;
   height: 45px;
   border-radius: 50px;
-  margin: 10px 30px;
+  margin: 10px 50px;
 }
-
+.header-right .indicator_box{
+  margin-left: 10px;
+  color: white;
+}
+.indicator_box_label{
+  margin-right: 20px;
+}
 .header-right label {
   width: 20px;
   height: 80px;
@@ -146,15 +152,22 @@ a {
   height: 85%;
   text-align: center;
   flex-wrap: wrap;
-  overflow-x: auto;
+  /* overflow-x: auto; */
   justify-content: center;
 }
+
+.recommend-music:hover{
+  transform: scale(1.02);
+  transition: all .5s;
+  }
 .recommend-music {
   /* width: 20%; */
   max-width: 195px;
   height: 82%;
   margin: 15px 10px;
   border-radius: 10px;
+  cursor: pointer;
+
 }
 
 .recommend-music img {

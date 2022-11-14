@@ -15,6 +15,8 @@ import ContainerMainFind from '../pages/ContainerMainFind.vue'
 import ContainerMainVideo from '../pages/ContainerMainVideo.vue'
 import SearchList from '@/pages/SearchList.vue'
 import MV from '@/pages/MV.vue'
+import SongList from '@/pages/SongList.vue'
+import SongListDetail from '@/pages/SongListDetail.vue'
 /**
  * 定义路由模
  */
@@ -45,9 +47,24 @@ const routes: Array<RouteRecordRaw> = [
         component: SearchList
       },
       {
-        path: '/ContainerMainVideo/mv',
+        path: '/ContainerMainVideo/mv/:name/:id',
         name: 'MV',
         component: MV
+      },
+      {
+        path: '/ContainerMainVideo/mv/:name/:id',
+        name: 'MV',
+        component: MV
+      },
+      {
+        path: '/SongList',
+        name: 'SongList',
+        component: SongList
+      },
+      {
+        path: '/SongList/SongListDetail',
+        name: 'SongListDetail',
+        component: SongListDetail
       }
     ]
   }

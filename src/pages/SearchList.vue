@@ -13,21 +13,45 @@
             @change-page="changepage"
           />
         </el-tab-pane>
-        <el-tab-pane label="歌单" :name="TABSTYE.SONGLIST"
-          >Config
-          <button @click="gomv">111</button>
-        </el-tab-pane>
-        <el-tab-pane label="MV" :name="TABSTYE.MV">
-          <div class="recommend-list">
-            <div class="recommend-music">
-              <img
-                src="http://p3.music.126.net/GpnLproqUUyc4xmYKpRFcQ==/109951166516282895.jpg"
-                alt=""
-              />
+        <el-tab-pane label="歌单" :name="TABSTYE.SONGLIST">
+          <div class="mv_list">
+            <div
+              class="recommend-music"
+              v-for="item in songListData?.playlists"
+              :key="item.id"
+              @click="goSongListDetail(item)"
+            >
+              <img :src="item.coverImgUrl" alt="" />
+              <div>{{ item.name }}</div>
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="专辑" :name="TABSTYE.ALBUM">Task</el-tab-pane>
+        <el-tab-pane label="MV" :name="TABSTYE.MV">
+          <div class="mv_list">
+            <div
+              class="recommend-music"
+              v-for="item in MVlist?.mvs"
+              :key="item.id"
+              @click="goMV(item)"
+            >
+              <img :src="item.cover" alt="" />
+              <div>{{ item.name }}</div>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="专辑" :name="TABSTYE.ALBUM">
+          <div class="mv_list">
+            <div
+              class="recommend-music"
+              v-for="item in albumList?.albums"
+              :key="item.id"
+              @click="goMV(item)"
+            >
+              <img :src="item.blurPicUrl" alt="" />
+              <div>{{ item.name }}</div>
+            </div>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </div>
   </div>
@@ -40,11 +64,16 @@ import Table from '@/components/Table.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SearchDataType } from '@/type'
 import { searchApi } from '@/api/search'
-import { changeTime } from '@/utils/changeDay'
 import dayjs from 'dayjs'
+type TABSTYPE = {
+  HOTSONG: number
+  SONGLIST: number
+  MV: number
+  ALBUM: number
+}
 const router = useRouter()
-const activeName = ref(1)
-const TABSTYE = ref({
+const activeName = ref<number>(1)
+const TABSTYE = ref<TABSTYPE>({
   HOTSONG: 1,
   SONGLIST: 1000,
   MV: 1004,
@@ -62,7 +91,6 @@ const MVlist = ref()
 const albumList = ref()
 const seacrList = ref()
 const total = ref()
-
 onMounted(() => {
   console.log(route.params)
   Object.assign(searchData.value, route.params)
@@ -73,7 +101,7 @@ onUpdated(() => {
   getSearchList()
 })
 const getSearchList = async () => {
-  const res = await searchApi(searchData.value)
+  const res = (await searchApi(searchData.value)) as any
   console.log(res)
   if (searchData.value.type === TABSTYE.value.HOTSONG) {
     seacrList.value = res.result.songs.map((item) => {
@@ -109,8 +137,12 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
   searchData.value.type = tab.paneName
 }
 
-const gomv = () => {
-  router.push('/ContainerMainVideo/mv')
+const goMV = (row) => {
+  router.push(`/ContainerMainVideo/mv/${row.name}/${row.id}`)
+}
+
+const goSongListDetail = (item) => {
+  router.push('/SongList/SongListDetail')
 }
 </script>
 <style scoped lang="less">
@@ -135,5 +167,33 @@ const gomv = () => {
 }
 :deep(.el-tabs__nav-wrap::after) {
   background-color: transparent;
+}
+.mv_list {
+  width: 100%;
+  max-height: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
+.mv_list::-webkit-scrollbar {
+  display: none;
+}
+.recommend-music {
+  div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+    font-size: 10px;
+    width: 190px !important;
+    color: white;
+  }
+}
+:deep(.el-tabs) {
+  height: 100% !important;
+  overflow-x: auto !important;
+}
+
+:deep(.el-tabs)::-webkit-scrollbar {
+  display: none;
 }
 </style>

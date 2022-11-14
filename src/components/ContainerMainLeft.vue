@@ -12,20 +12,22 @@
       <li><a href="javascript:;">我喜欢的音乐</a></li>
       <li><a href="javascript:;">我的收藏</a></li>
       <li><a href="javascript:;">发现</a></li>
-      <li><a href="javascript:;">歌单</a></li>
+      <li @click="goSongList"><a href="javascript:;">歌单</a></li>
     </ul>
   </div>
 </template>
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 const goFindMusic = () => {
-  router.push("/ContainerMainFind");
-};
+  router.push('/ContainerMainFind')
+}
 const goVideo = () => {
-  router.push("/ContainerMainVideo");
-};
+  router.push('/ContainerMainVideo')
+}
+const goSongList = () => {
+  router.push('/SongList')
+}
 </script>
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

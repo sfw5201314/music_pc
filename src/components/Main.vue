@@ -6,6 +6,14 @@
           <img src="./images/QQ截图20220521220541.png" alt="" />
         </div>
         <div class="header-right">
+          <div class="indicator_box">
+            <label class="indicator_box_label" @click="router.back()"
+              ><el-icon><ArrowLeftBold /></el-icon
+            ></label>
+            <label @click="router.forward()"
+              ><el-icon><ArrowRightBold /></el-icon
+            ></label>
+          </div>
           <div class="search" @keyup.enter="search">
             <el-input
               v-model="searchObj.keywords"

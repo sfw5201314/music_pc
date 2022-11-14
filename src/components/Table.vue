@@ -2,8 +2,8 @@
   <div>
     <el-table
       :data="tableData"
-      height="420"
       @row-dblclick="rowClick"
+      height="90%"
       style="width: 100%"
     >
       <el-table-column label="音乐标题" width="250">
@@ -22,7 +22,7 @@
     </el-table>
     <div class="footer">
       <Pagination :total="total" @page-size="changePageSize" />
-      <audio :src="musicUrl" controls></audio>
+      <!-- <audio :src="musicUrl" controls autoplay></audio> -->
     </div>
   </div>
 </template>
