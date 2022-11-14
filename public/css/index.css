@@ -72,19 +72,6 @@ a {
   border: 1px solid pink;
 }
 
-/* .search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  height: 80%;
-  border-radius: 50px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: -10px;
-  background-color: red;
-} */
-
 .container-main {
   display: flex;
   width: 100%;
@@ -121,7 +108,6 @@ a {
   line-height: 50px;
   list-style: none;
   border-radius: 10px;
-  /* background-color: red; */
 }
 
 .container-mainLeft ul li:hover {
@@ -135,14 +121,12 @@ a {
 .container-mainRight {
   width: 76%;
   height: 100%;
-  /* background-color: red; */
 }
 
 .mainRight-up {
   margin: 10px 0;
   height: 50%;
   margin-right: 10px;
-  /* background-color: red; */
 }
 
 .banner {

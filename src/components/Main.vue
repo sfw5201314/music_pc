@@ -7,11 +7,6 @@
         </div>
         <div class="header-right">
           <div class="search" @keyup.enter="search">
-            <!-- <input
-              type="text"
-              v-model="keyword"
-              placeholder="搜索歌曲,艺术家等...."
-            /> -->
             <el-input
               v-model="searchObj.keywords"
               placeholder="搜索歌曲,艺术家等...."
@@ -31,20 +26,32 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, provide } from 'vue'
 import { useRouter } from 'vue-router'
 import ContainerMain from '../pages/ContainerMain.vue'
 import MusicControl from './MusicControl.vue'
+import { searchApi } from '@/api/search'
 import { SearchDataType } from '@/type'
+import { cloneDeep } from 'lodash'
 let searchObj = ref<SearchDataType>({
-  keywords: '',
-  type: 1
+  keywords: ''
 })
+let searchList = ref()
+provide('searchList', searchList)
 const router = useRouter()
+const getSearchList = async () => {
+  const res = await searchApi(searchObj.value)
+  searchList.value = cloneDeep(res)
+  Object.assign(searchList.value, searchObj.value)
+  console.log(searchList.value)
+}
 const search = () => {
   console.log(searchObj.value.keywords)
   if (searchObj.value.keywords === '') return
-  router.push(`/SearchList?keywords=${searchObj.value.keywords}`)
+  // getSearchList()
+  router.push({
+    path: `/SearchList/${searchObj.value.keywords}`
+  })
 }
 </script>
 <style lang="less" scoped>

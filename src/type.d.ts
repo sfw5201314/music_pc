@@ -11,5 +11,6 @@ export interface BannerDataType {
 
 export interface SearchDataType {
   keywords: string | null
-  type?: number
+  type?: string | number | null
+  offset?: number | null
 }

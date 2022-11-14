@@ -1,0 +1,207 @@
+<template>
+  <div>
+    <el-table
+      :data="tableData"
+      height="420"
+      @row-dblclick="rowClick"
+      style="width: 100%"
+    >
+      <el-table-column label="音乐标题" width="250">
+        <template v-slot="scope">
+          <label>{{ scope.row.name }}</label>
+        </template>
+      </el-table-column>
+      <el-table-column label="歌手" width="250">
+        <template v-slot="scope">
+          <label @click="edit(scope.row.ar)">{{ scope.row.ar[0].name }}</label>
+        </template>
+      </el-table-column>
+      <el-table-column prop="al.name" label="专辑" width="280">
+      </el-table-column>
+      <el-table-column prop="publishTime" label="时长" />
+    </el-table>
+    <div class="footer">
+      <Pagination :total="total" @page-size="changePageSize" />
+      <audio :src="musicUrl" controls></audio>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import Pagination from '@/components/Pagination.vue'
+import { getMusicUrl } from '@/api/getDetailUrl'
+const props = defineProps({
+  tableData: {
+    type: Object,
+    default: () => null
+  },
+  total: {
+    type: Number,
+    default: 0
+  }
+})
+const emits = defineEmits(['changePage'])
+const musicUrl = ref()
+onMounted(() => {
+  console.log(props.tableData)
+})
+const edit = (row) => {
+  console.log(row)
+}
+const rowClick = (row, column, event) => {
+  console.log(row.id)
+  getUrl(row.id)
+}
+const getUrl = async (id) => {
+  const res = await getMusicUrl(id)
+  console.log(res)
+  musicUrl.value = res.data[0].url
+}
+
+const changePageSize = (size) => {
+  console.log('🚀', size)
+  emits('changePage', size)
+}
+// const tableData = [
+//   {
+//     date: '2016-05-03',
+//     name: 'Tom',
+//     address: 'No. 189, Grove St, Los Angeles',
+//     id: 1231,
+//     ar: [
+//       {
+//         id: 1,
+//         name: '刘德华'
+//       }
+//     ],
+//     al: [
+//       {
+//         name: '刘德华'
+//       }
+//     ]
+//   },
+//   {
+//     date: '2016-05-03',
+//     name: 'Tom',
+//     address: 'No. 189, Grove St, Los Angeles',
+//     id: 1231,
+//     ar: [
+//       {
+//         name: '刘德华',
+//         id: 2
+//       }
+//     ],
+//     al: [
+//       {
+//         name: '刘德华'
+//       }
+//     ]
+//   },
+//   {
+//     date: '2016-05-03',
+//     name: 'Tom',
+//     address: 'No. 189, Grove St, Los Angeles',
+//     id: 1231,
+//     ar: [
+//       {
+//         name: '刘德华'
+//       }
+//     ],
+//     al: [
+//       {
+//         name: '刘德华'
+//       }
+//     ]
+//   },
+//   {
+//     date: '2016-05-03',
+//     name: 'Tom',
+//     address: 'No. 189, Grove St, Los Angeles',
+//     id: 1231,
+//     ar: [
+//       {
+//         name: '刘德华'
+//       }
+//     ],
+//     al: [
+//       {
+//         name: '刘德华'
+//       }
+//     ]
+//   },
+//   {
+//     date: '2016-05-03',
+//     name: 'Tom',
+//     address: 'No. 189, Grove St, Los Angeles',
+//     id: 1231,
+//     ar: [
+//       {
+//         name: '刘德华'
+//       }
+//     ],
+//     al: [
+//       {
+//         name: '刘德华'
+//       }
+//     ]
+//   },
+//   {
+//     date: '2016-05-03',
+//     name: 'Tom',
+//     address: 'No. 189, Grove St, Los Angeles',
+//     id: 1231,
+//     ar: [
+//       {
+//         name: '刘德华'
+//       }
+//     ],
+//     al: [
+//       {
+//         name: '刘德华'
+//       }
+//     ]
+//   }
+// ]
+</script>
+<style scoped lang="less">
+:deep(.el-table) {
+  background-color: transparent !important;
+  border: 0 !important;
+}
+:deep(.el-table th) {
+  color: white; /* 字体颜色 */
+  font-size: 16px;
+  background-color: transparent !important; /* 背景透明 */
+  border: 0;
+  height: 30px;
+  line-height: 30px;
+  border: 0 !important;
+}
+:deep(.el-table tr, .el-table td) {
+  color: white;
+  font-size: 12px;
+  background-color: transparent !important; /* 背景透明 */
+  border: 0;
+  height: 30px;
+  line-height: 30px;
+}
+:deep(.el-table td.el-table__cell, .el-table th.el-table__cell.is-leaf) {
+  border: 0 !important;
+}
+
+:deep(.el-table__inner-wrapper::before) {
+  height: 0 !important;
+}
+:deep(.el-table--enable-row-hover
+    .el-table__body
+    tr:hover
+    > td.el-table__cell) {
+  background-color: rgba(225, 225, 255, 0.3) !important;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
