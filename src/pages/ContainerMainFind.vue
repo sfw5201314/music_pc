@@ -15,9 +15,10 @@
           class="recommend-music"
           v-for="item in rcmdMusicList"
           :key="item?.id"
+          @click="goSongListDetail(item)"
         >
           <img :src="item?.picUrl" :alt="item.name" />
-          <span>{{ item.name }}</span>
+          <div>{{ item.name }}</div>
         </div>
       </div>
     </el-scrollbar>
@@ -28,24 +29,29 @@ import Banner from '@/components/Banner.vue'
 import { bannerApi, recommendMusicApi } from '@/api/homeApi'
 import { onMounted, ref } from 'vue'
 import { BannerDataType } from '@/type'
+import { useRouter } from 'vue-router'
 const bannerList = ref<Array<string>>([])
 const rcmdMusicList = ref<Array<any>>([])
+const router = useRouter()
 onMounted(() => {
   getBannerUrl()
   getRecommendMusic()
 })
 const getBannerUrl = async () => {
-  const res = await bannerApi()
+  const res = (await bannerApi()) as any
   console.log(res)
   bannerList.value = res.banners
   console.log(bannerList.value)
 }
 
 const getRecommendMusic = async () => {
-  const res = await recommendMusicApi(8)
+  const res = (await recommendMusicApi(8)) as any
   console.log('rMusic', res)
   rcmdMusicList.value = res.result
   console.log('da', rcmdMusicList.value)
+}
+const goSongListDetail = (row) => {
+  router.push(`/SongList/SongListDetail/${row.id}`)
 }
 </script>
 <style lang="scss" scoped>

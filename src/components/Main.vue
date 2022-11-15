@@ -29,7 +29,8 @@
         </div>
       </div>
       <ContainerMain />
-      <MusicControl />
+      <Drawer ref="DrawerRef" :history-list="historyMusicList" />
+      <MusicControl :box-ref="DrawerRef" @music-arr="getHistoryMusicList" />
     </div>
   </div>
 </template>
@@ -41,18 +42,20 @@ import MusicControl from './MusicControl.vue'
 import { searchApi } from '@/api/search'
 import { SearchDataType } from '@/type'
 import { cloneDeep } from 'lodash'
+import Drawer from '@/components/Drawer.vue'
 let searchObj = ref<SearchDataType>({
   keywords: ''
 })
-let searchList = ref()
-provide('searchList', searchList)
+let historyMusicList = ref()
+const DrawerRef = ref()
+// provide('searchList', searchList)
 const router = useRouter()
-const getSearchList = async () => {
-  const res = await searchApi(searchObj.value)
-  searchList.value = cloneDeep(res)
-  Object.assign(searchList.value, searchObj.value)
-  console.log(searchList.value)
-}
+// const getSearchList = async () => {
+//   const res = await searchApi(searchObj.value)
+//   searchList.value = cloneDeep(res)
+//   Object.assign(searchList.value, searchObj.value)
+//   console.log(searchList.value)
+// }
 const search = () => {
   console.log(searchObj.value.keywords)
   if (searchObj.value.keywords === '') return
@@ -60,6 +63,11 @@ const search = () => {
   router.push({
     path: `/SearchList/${searchObj.value.keywords}`
   })
+}
+
+const getHistoryMusicList = (list) => {
+  historyMusicList.value = list
+  console.log('传过来的', historyMusicList.value)
 }
 </script>
 <style lang="less" scoped>

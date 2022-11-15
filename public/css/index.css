@@ -13,7 +13,7 @@ a {
   align-items: center;
   width: 100%;
   height: 100vh;
-  background: url("https://tc.miniwhite.top/images/123.jpg") no-repeat;
+  background: url('https://tc.miniwhite.top/images/123.jpg') no-repeat;
   background-position: center;
   background-size: cover;
 }
@@ -51,11 +51,11 @@ a {
   border-radius: 50px;
   margin: 10px 50px;
 }
-.header-right .indicator_box{
+.header-right .indicator_box {
   margin-left: 10px;
   color: white;
 }
-.indicator_box_label{
+.indicator_box_label {
   margin-right: 20px;
 }
 .header-right label {
@@ -88,8 +88,11 @@ a {
   display: flex;
   width: 100%;
   height: 73px;
+  position: relative;
+  align-items: center;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px;
+  z-index: 9;
 }
 
 .container-mainLeft {
@@ -131,7 +134,7 @@ a {
 
 .mainRight-up {
   margin: 10px 0;
-  height: 50%;
+  height: 45%;
   margin-right: 10px;
 }
 
@@ -143,7 +146,7 @@ a {
 }
 
 .mainRight-down {
-  height: 45%;
+  height: 50%;
 }
 
 .recommend-list {
@@ -156,20 +159,26 @@ a {
   justify-content: center;
 }
 
-.recommend-music:hover{
+.recommend-music:hover {
   transform: scale(1.02);
-  transition: all .5s;
-  }
+  transition: all 0.5s;
+}
 .recommend-music {
   /* width: 20%; */
   max-width: 195px;
   height: 82%;
-  margin: 15px 10px;
+  margin: 10px 10px;
   border-radius: 10px;
   cursor: pointer;
-
 }
-
+.recommend-music div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap !important;
+  font-size: 10px;
+  width: 190px !important;
+  color: white;
+}
 .recommend-music img {
   border-radius: 10px;
   width: 100%;
@@ -195,6 +204,9 @@ a {
 }
 
 .music-name p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap !important;
   margin: 10px 0;
 }
 

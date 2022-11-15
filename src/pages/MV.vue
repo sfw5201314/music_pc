@@ -9,7 +9,7 @@
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import { getMVUrl } from '@/api/getDetailUrl'
-const props = defineProps({
+defineProps({
   mvData: {
     type: Object,
     default: () => null
@@ -21,7 +21,6 @@ const mvName = ref()
 const videoRef = ref()
 onMounted(() => {
   getMvUrlData()
-  console.log(videoRef)
 })
 const route = useRoute()
 const getMvUrlData = async () => {

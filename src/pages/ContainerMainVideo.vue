@@ -1,49 +1,59 @@
 <template>
   <div class="mainRight-up">
     <div>
-      <h3>视频</h3>
+      <h3>个性推荐</h3>
     </div>
-    <Banner />
+    <Banner :img-url="bannerList" />
   </div>
   <div class="mainRight-down">
     <div>
-      <h3>推荐歌单</h3>
+      <h3>最新MV</h3>
     </div>
-    <!-- <div class="recommend-list">
-      <div class="recommend-music">
-        <img
-          src="http://p3.music.126.net/GpnLproqUUyc4xmYKpRFcQ==/109951166516282895.jpg"
-          alt=""
-        />
+    <el-scrollbar height="85%">
+      <div class="recommend-list">
+        <div
+          class="recommend-music"
+          v-for="item in videoList"
+          :key="item?.id"
+          @click="goMV(item)"
+        >
+          <img :src="item?.cover" :alt="item.name" />
+          <div>{{ item.name }} (by {{ item.artistName }})</div>
+          <!-- <div>by {{ item.artistName }}</div> -->
+        </div>
       </div>
-      <div class="recommend-music">
-        <img
-          src="http://p3.music.126.net/GpnLproqUUyc4xmYKpRFcQ==/109951166516282895.jpg"
-          alt=""
-        />
-      </div>
-      <div class="recommend-music">
-        <img
-          src="http://p3.music.126.net/GpnLproqUUyc4xmYKpRFcQ==/109951166516282895.jpg"
-          alt=""
-        />
-      </div>
-      <div class="recommend-music">
-        <img
-          src="http://p3.music.126.net/GpnLproqUUyc4xmYKpRFcQ==/109951166516282895.jpg"
-          alt=""
-        />
-      </div>
-      <div class="recommend-music">
-        <img
-          src="http://p3.music.126.net/GpnLproqUUyc4xmYKpRFcQ==/109951166516282895.jpg"
-          alt=""
-        />
-      </div>
-    </div> -->
+    </el-scrollbar>
   </div>
 </template>
 <script setup lang="ts">
 import Banner from '@/components/Banner.vue'
+import { useRouter } from 'vue-router'
+import { bannerApi } from '@/api/homeApi'
+import { getNewVideoUrl } from '@/api/getDetailUrl'
+import { onMounted, ref } from 'vue'
+const bannerList = ref<Array<string>>([])
+const router = useRouter()
+const videoList = ref()
+onMounted(() => {
+  getBannerUrl()
+  getMVlist()
+})
+const getBannerUrl = async () => {
+  const res = (await bannerApi()) as any
+  console.log(res)
+  bannerList.value = res.banners
+  console.log(bannerList.value)
+}
+
+const getMVlist = async () => {
+  const res = await getNewVideoUrl(20)
+  videoList.value = res.data
+  console.log(res.data)
+}
+const goMV = (row) => {
+  router.push(
+    `/ContainerMainVideo/mv/${row.name + '(' + row.artistName + ')'}/${row.id}`
+  )
+}
 </script>
 <style lang="scss" scoped></style>

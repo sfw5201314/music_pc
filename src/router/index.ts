@@ -62,7 +62,7 @@ const routes: Array<RouteRecordRaw> = [
         component: SongList
       },
       {
-        path: '/SongList/SongListDetail',
+        path: '/SongList/SongListDetail/:id',
         name: 'SongListDetail',
         component: SongListDetail
       }

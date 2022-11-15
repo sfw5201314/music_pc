@@ -34,6 +34,7 @@
               :key="item.id"
               @click="goMV(item)"
             >
+              <!-- <el-image :src="item.cover" lazy /> -->
               <img :src="item.cover" alt="" />
               <div>{{ item.name }}</div>
             </div>
@@ -141,8 +142,8 @@ const goMV = (row) => {
   router.push(`/ContainerMainVideo/mv/${row.name}/${row.id}`)
 }
 
-const goSongListDetail = (item) => {
-  router.push('/SongList/SongListDetail')
+const goSongListDetail = (row) => {
+  router.push(`/SongList/SongListDetail/${row.id}`)
 }
 </script>
 <style scoped lang="less">
@@ -170,26 +171,16 @@ const goSongListDetail = (item) => {
 }
 .mv_list {
   width: 100%;
-  max-height: 450px;
+  // max-height: 450px;
   display: flex;
   flex-wrap: wrap;
-  overflow-x: auto;
+  // overflow-x: auto;
 }
 .mv_list::-webkit-scrollbar {
   display: none;
 }
-.recommend-music {
-  div {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap !important;
-    font-size: 10px;
-    width: 190px !important;
-    color: white;
-  }
-}
 :deep(.el-tabs) {
-  height: 100% !important;
+  height: 95% !important;
   overflow-x: auto !important;
 }
 

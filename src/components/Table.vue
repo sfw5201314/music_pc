@@ -16,7 +16,7 @@
           <label @click="edit(scope.row.ar)">{{ scope.row.ar[0].name }}</label>
         </template>
       </el-table-column>
-      <el-table-column prop="al.name" label="专辑" width="280">
+      <el-table-column v-if="isShow" prop="al.name" label="专辑" width="280">
       </el-table-column>
       <el-table-column prop="publishTime" label="时长" />
     </el-table>
@@ -30,6 +30,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import Pagination from '@/components/Pagination.vue'
+import { musicStore } from '@/stores/music'
+//引入这个使store中state数据具有响应式
+import { storeToRefs } from 'pinia'
 import { getMusicUrl } from '@/api/getDetailUrl'
 const props = defineProps({
   tableData: {
@@ -39,10 +42,16 @@ const props = defineProps({
   total: {
     type: Number,
     default: 0
+  },
+  isShow: {
+    type: Boolean,
+    default: true
   }
 })
 const emits = defineEmits(['changePage'])
 const musicUrl = ref()
+const store = musicStore()
+let { musicArrUrl, musicDetailArr } = storeToRefs(store)
 onMounted(() => {
   console.log(props.tableData)
 })
@@ -50,119 +59,23 @@ const edit = (row) => {
   console.log(row)
 }
 const rowClick = (row, column, event) => {
-  console.log(row.id)
+  musicDetailArr?.value.push(row)
+  // console.log(row.id)
   getUrl(row.id)
 }
 const getUrl = async (id) => {
   const res = await getMusicUrl(id)
-  console.log(res)
+  // console.log(res)
   musicUrl.value = res.data[0].url
+  console.log('url', musicUrl.value)
+  musicArrUrl.value.push(musicUrl.value)
+  // console.log(store.$state.musicArrUrl, audioUrl.value)
 }
 
 const changePageSize = (size) => {
   console.log('🚀', size)
   emits('changePage', size)
 }
-// const tableData = [
-//   {
-//     date: '2016-05-03',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//     id: 1231,
-//     ar: [
-//       {
-//         id: 1,
-//         name: '刘德华'
-//       }
-//     ],
-//     al: [
-//       {
-//         name: '刘德华'
-//       }
-//     ]
-//   },
-//   {
-//     date: '2016-05-03',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//     id: 1231,
-//     ar: [
-//       {
-//         name: '刘德华',
-//         id: 2
-//       }
-//     ],
-//     al: [
-//       {
-//         name: '刘德华'
-//       }
-//     ]
-//   },
-//   {
-//     date: '2016-05-03',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//     id: 1231,
-//     ar: [
-//       {
-//         name: '刘德华'
-//       }
-//     ],
-//     al: [
-//       {
-//         name: '刘德华'
-//       }
-//     ]
-//   },
-//   {
-//     date: '2016-05-03',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//     id: 1231,
-//     ar: [
-//       {
-//         name: '刘德华'
-//       }
-//     ],
-//     al: [
-//       {
-//         name: '刘德华'
-//       }
-//     ]
-//   },
-//   {
-//     date: '2016-05-03',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//     id: 1231,
-//     ar: [
-//       {
-//         name: '刘德华'
-//       }
-//     ],
-//     al: [
-//       {
-//         name: '刘德华'
-//       }
-//     ]
-//   },
-//   {
-//     date: '2016-05-03',
-//     name: 'Tom',
-//     address: 'No. 189, Grove St, Los Angeles',
-//     id: 1231,
-//     ar: [
-//       {
-//         name: '刘德华'
-//       }
-//     ],
-//     al: [
-//       {
-//         name: '刘德华'
-//       }
-//     ]
-//   }
-// ]
 </script>
 <style scoped lang="less">
 :deep(.el-table) {

@@ -1,9 +1,14 @@
 <template>
   <div class="bg-blur">
     <div id="player">
-      <audio ref="playRef" controls style="display: none;">
-        <source src="../muisc/蔡琴明月几时有.mp3" type="audio/mpeg">
-      </audio>
+      <audio
+        :src="musicUrl?.[musicUrl.length - 1]"
+        ref="playRef"
+        controls
+        autoplay
+        style="display: none"
+        @ended="musicOver"
+      ></audio>
       <!-- 控制模块 -->
       <div id="player-content2">
         <!-- 右侧歌曲操作模块 -->
@@ -11,8 +16,18 @@
           <!-- 上一首按钮 -->
           <div class="btn prev iconfont" @click="outBtn">&#xe603;</div>
           <!-- 暂停/播放 按钮 -->
-          <div class="btn play-pause  iconfont" :class="isPlay ? 'icon-jiediankaishi' : 'icon-zanting'" @click="play">
-          </div>
+          <div
+            v-if="musicUrl.length !== 0"
+            class="btn play-pause iconfont"
+            :class="isPlay ? 'icon-jiediankaishi' : 'icon-zanting'"
+            @click="play"
+          ></div>
+          <div
+            v-if="musicUrl.length == 0"
+            class="btn play-pause iconfont"
+            :class="{ 'icon-jiediankaishi': musicUrl.length == 0 }"
+            @click="play"
+          ></div>
           <!-- 下一首按钮 -->
           <div class="btn next iconfont" @click="next">&#xe602;</div>
         </div>
@@ -24,45 +39,68 @@
             <div class="total-time"></div>
           </div>
           <!-- 进度条 -->
-          <div id="s-area">
-            <!-- 鼠标移动到进度条上，显示的时间信息 -->
-            <div id="ins-time"></div>
-            <!-- 鼠标移动到进度条上，进度条变暗部分-->
-            <div id="s-hover"></div>
-            <!-- 表示当前歌曲播放进度的蓝色进度条 -->
-            <div id="seek-bar"></div>
+          <div>
+            <el-slider v-model="value3" :show-tooltip="false" size="small" />
           </div>
         </div>
+        <!-- <div id="s-area"> -->
+        <!-- 鼠标移动到进度条上，显示的时间信息 -->
+        <!-- <div id="ins-time"></div> -->
+        <!-- 鼠标移动到进度条上，进度条变暗部分-->
+        <!-- <div id="s-hover"></div> -->
+        <!-- 表示当前歌曲播放进度的蓝色进度条 -->
+        <!-- <div id="seek-bar"></div> -->
+        <!-- </div> -->
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue'
+import { musicStore } from '@/stores/music'
+//引入这个使store中state数据具有响应式
+import { storeToRefs } from 'pinia'
+const musicUrl = ref([])
+const value3 = ref(0)
+const store = musicStore()
 
 let isPlay = ref(true)
 const playRef = ref()
+onMounted(() => {
+  musicUrl.value = store.$state.musicArrUrl
+})
 const outBtn = () => {
-  console.log("这是上一首按钮");
+  console.log('这是上一首按钮')
 }
-const play = () => {
-  let audio = document.querySelector("audio")
+watch(store, (newValue, oldValue) => {
+  // console.log('watch 已触发', 'new', newValue.$state, 'old', oldValue.$state)
+  musicUrl.value = newValue.$state.musicArrUrl
+  isPlay.value = false
+})
+const play = async () => {
+  // let audio = document.querySelector('audio')
   isPlay.value = !isPlay.value
-  if (isPlay.value == true) {
-    audio?.play()
-  } else if (isPlay.value == false) {
+  if (isPlay.value == false) {
+    await playRef.value.play()
+  } else if (isPlay.value == true) {
     // audio?.pause()
-    playRef.value.pause()
+    await playRef.value.pause()
   }
-  console.log("play" + audio?.play());
-  console.log("pause" + audio?.pause());
-  console.log("这是播放暂停按钮");
-  console.log(audio);
-  console.log(playRef);
+  // console.log('play' + playRef.value.play())
+  // console.log('pause' + audio?.pause())
+  // console.log('这是播放暂停按钮')
+  console.log('aaaa', isPlay.value)
 
+  // console.log(audio)
+  // console.log(playRef)
+}
+
+const musicOver = () => {
+  console.log('播放完毕了')
+  isPlay.value = true
 }
 const next = () => {
-  console.log("这是下一首按钮");
+  console.log('这是下一首按钮')
 }
 </script>
 <style scoped lang="less">
@@ -187,7 +225,7 @@ const next = () => {
 }
 
 #seek-bar {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   bottom: 0;
@@ -199,8 +237,9 @@ const next = () => {
 
 #player-content2 {
   /* position: relative; */
-  width: 800px;
-  height: 75px;
+  align-items: inherit;
+  width: 100%;
+  height: 70px;
   display: flex;
   background: #fff;
   border-radius: 20px;
@@ -229,7 +268,7 @@ const next = () => {
 }
 
 .music-imgs:before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   right: 0;
@@ -340,5 +379,14 @@ const next = () => {
 
 .btn {
   cursor: pointer;
+}
+
+:deep(.el-slider__button) {
+  display: none;
+  width: 11px;
+  height: 11px;
+}
+:deep(.el-slider):hover .el-slider__button {
+  display: inline-block;
 }
 </style>
