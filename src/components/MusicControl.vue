@@ -3,18 +3,18 @@
     <div class="music-text">
       <div class="music-logo">
         <!-- 生产模式这样引入 -->
-        <!-- <img
+        <img
           :src="musicDetail?.al?.picUrl ? musicDetail?.al?.picUrl : musicImg"
           alt=""
-        /> -->
-        <img
+        />
+        <!-- <img
           :src="
             musicDetail?.al?.picUrl
               ? musicDetail?.al?.picUrl
               : '../assets/images/OpticalDisk.png'
           "
           alt=""
-        />
+        /> -->
       </div>
       <div class="music-name">
         <p style="font-size: 18px">
@@ -38,7 +38,7 @@ import { onMounted, ref, watch } from 'vue'
 import aplayer from '../components/Audio.vue'
 import { musicStore } from '@/stores/music'
 //生产模式这样引入
-// import musicImg from '@/assets/images/OpticalDisk.png'
+import musicImg from '@/assets/images/OpticalDisk.png'
 
 const props = defineProps({
   boxRef: {
