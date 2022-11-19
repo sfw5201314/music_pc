@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import { stringLiteral } from '@babel/types'
 
-const props = defineProps({
+defineProps({
   imgUrl: {
     type: Object,
     default: () => []

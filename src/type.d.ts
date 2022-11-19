@@ -5,10 +5,6 @@ export interface LoginData {
   email?: string
 }
 
-export interface BannerDataType {
-  banner: Array<any>
-}
-
 export interface SearchDataType {
   keywords: string | null
   type?: string | number | null

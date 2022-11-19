@@ -26,9 +26,9 @@ import { onMounted, ref } from 'vue'
 import dayjs from 'dayjs'
 
 const route = useRoute()
-const songListName = ref()
-const songDetailList = ref()
-const songListImg = ref()
+const songListName = ref<string>()
+const songDetailList = ref<Array<any>>()
+const songListImg = ref<string>()
 onMounted(() => {
   getSongDetail()
   getDetail()

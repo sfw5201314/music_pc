@@ -16,8 +16,8 @@ defineProps({
   }
 })
 
-const mvUrl = ref()
-const mvName = ref()
+const mvUrl = ref<string>()
+const mvName = ref<string | string[]>()
 const videoRef = ref()
 onMounted(() => {
   getMvUrlData()

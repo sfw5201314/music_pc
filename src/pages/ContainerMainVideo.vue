@@ -33,7 +33,7 @@ import { getNewVideoUrl } from '@/api/getDetailUrl'
 import { onMounted, ref } from 'vue'
 const bannerList = ref<Array<string>>([])
 const router = useRouter()
-const videoList = ref()
+const videoList = ref<Array<any>>()
 onMounted(() => {
   getBannerUrl()
   getMVlist()

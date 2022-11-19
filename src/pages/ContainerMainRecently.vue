@@ -40,10 +40,10 @@ const getDetail = async () => {
 
 //清空列表
 const remove = () => {
-  console.log(recentMusic.value)
+  // console.log(recentMusic.value)
   recentMusic.value = []
   songDetailList.value = []
-  console.log('删除后', songDetailList.value)
+  // console.log('删除后', songDetailList.value)
 }
 </script>
 <style scoped lang="less">

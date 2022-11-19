@@ -34,7 +34,7 @@ import { musicStore } from '@/stores/music'
 //引入这个使store中state数据具有响应式
 import { storeToRefs } from 'pinia'
 import { getMusicUrl } from '@/api/getDetailUrl'
-const props = defineProps({
+defineProps({
   tableData: {
     type: Object,
     default: () => null

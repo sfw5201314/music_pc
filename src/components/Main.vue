@@ -39,7 +39,6 @@ import { ref, provide } from 'vue'
 import { useRouter } from 'vue-router'
 import ContainerMain from '../pages/ContainerMain.vue'
 import MusicControl from './MusicControl.vue'
-import { searchApi } from '@/api/search'
 import { SearchDataType } from '@/type'
 import { cloneDeep } from 'lodash'
 import Drawer from '@/components/Drawer.vue'
@@ -57,7 +56,7 @@ const router = useRouter()
 //   console.log(searchList.value)
 // }
 const search = () => {
-  console.log(searchObj.value.keywords)
+  // console.log(searchObj.value.keywords)
   if (searchObj.value.keywords === '') return
   // getSearchList()
   router.push({

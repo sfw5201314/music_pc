@@ -39,6 +39,7 @@ import aplayer from '../components/Audio.vue'
 import { musicStore } from '@/stores/music'
 //生产模式这样引入
 // import musicImg from '@/assets/images/OpticalDisk.png'
+
 const props = defineProps({
   boxRef: {
     type: Object,
@@ -48,7 +49,7 @@ const props = defineProps({
 const emits = defineEmits(['musicArr'])
 const store = musicStore()
 const musicDetail = ref()
-const historyList = ref()
+const historyList = ref<Array<any>>([])
 onMounted(() => {
   // musicDetail.value =
   //   store.$state.musicDetailArr[store.$state.musicDetailArr.length - 1]
@@ -59,7 +60,7 @@ onMounted(() => {
 watch(store, (newValue, oldValue) => {
   // console.log('watch 已触发', 'new', newValue.$state, 'old', oldValue.$state)
   musicDetail.value = newValue.$state?.musicDetailArr?.[0]
-  // console.log(musicDetail.value)
+  console.log(musicDetail.value)
   historyList.value = newValue.$state?.musicDetailArr
   emits('musicArr', historyList.value)
 })

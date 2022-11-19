@@ -36,8 +36,8 @@ const props = defineProps({
     default: () => null
   }
 })
-const musicListHistory = ref()
-const table = ref(false)
+const musicListHistory = ref<Object>()
+const table = ref<boolean>(false)
 onMounted(() => {
   musicListHistory.value = props?.historyList
 })

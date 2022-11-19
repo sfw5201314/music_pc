@@ -28,7 +28,6 @@
 import Banner from '@/components/Banner.vue'
 import { bannerApi, recommendMusicApi } from '@/api/homeApi'
 import { onMounted, ref } from 'vue'
-import { BannerDataType } from '@/type'
 import { useRouter } from 'vue-router'
 const bannerList = ref<Array<string>>([])
 const rcmdMusicList = ref<Array<any>>([])

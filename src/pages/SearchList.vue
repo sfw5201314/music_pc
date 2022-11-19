@@ -87,11 +87,11 @@ const searchData = ref<SearchDataType>({
   type: 1
 })
 
-const songListData = ref()
-const MVlist = ref()
-const albumList = ref()
-const seacrList = ref()
-const total = ref()
+const songListData = ref<any>()
+const MVlist = ref<any>()
+const albumList = ref<any>()
+const seacrList = ref<Array<any>>()
+const total = ref<number>()
 onMounted(() => {
   console.log(route.params)
   Object.assign(searchData.value, route.params)
