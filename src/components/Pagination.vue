@@ -19,7 +19,7 @@ defineProps({
 })
 const emits = defineEmits(['pageSize'])
 const changePage = (size) => {
-  console.log(size)
+  // console.log(size)
   emits('pageSize', size)
 }
 </script>

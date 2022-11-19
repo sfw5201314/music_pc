@@ -11,7 +11,9 @@
       <!-- <span>{{ total }}个结果</span> -->
     </div>
     <div class="search_main">
-      <Table :table-data="songDetailList" />
+      <el-scrollbar>
+        <Table :table-data="songDetailList" />
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -39,7 +41,7 @@ const getSongDetail = async () => {
 }
 const getDetail = async () => {
   const res = (await getSongDeatilList(route.params.id, 10, 0)) as any
-  console.log(res.songs)
+  // console.log(res.songs)
   // songDetailList.value = res.songs
   songDetailList.value = res.songs.map((item) => {
     return {
@@ -53,6 +55,13 @@ const getDetail = async () => {
 }
 </script>
 <style scoped lang="less">
+.search_box {
+  height: 100%;
+  .search_main {
+    height: 75%;
+    margin-right: 10px;
+  }
+}
 .search_header {
   display: flex;
   align-items: center;

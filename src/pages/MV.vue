@@ -24,10 +24,10 @@ onMounted(() => {
 })
 const route = useRoute()
 const getMvUrlData = async () => {
-  console.log(route.params.id)
+  // console.log(route.params.id)
   mvName.value = route.params.name
   const res = await getMVUrl(route.params.id)
-  console.log(res)
+  // console.log(res)
   mvUrl.value = res.data.url
 }
 </script>

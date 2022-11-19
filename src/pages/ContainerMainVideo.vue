@@ -40,7 +40,7 @@ onMounted(() => {
 })
 const getBannerUrl = async () => {
   const res = (await bannerApi()) as any
-  console.log(res)
+  // console.log(res)
   bannerList.value = res.banners
   console.log(bannerList.value)
 }
@@ -48,7 +48,7 @@ const getBannerUrl = async () => {
 const getMVlist = async () => {
   const res = await getNewVideoUrl(20)
   videoList.value = res.data
-  console.log(res.data)
+  // console.log(res.data)
 }
 const goMV = (row) => {
   router.push(

@@ -39,16 +39,16 @@ onMounted(() => {
 })
 const getBannerUrl = async () => {
   const res = (await bannerApi()) as any
-  console.log(res)
+  // console.log(res)
   bannerList.value = res.banners
-  console.log(bannerList.value)
+  // console.log(bannerList.value)
 }
 
 const getRecommendMusic = async () => {
   const res = (await recommendMusicApi(8)) as any
-  console.log('rMusic', res)
+  // console.log('rMusic', res)
   rcmdMusicList.value = res.result
-  console.log('da', rcmdMusicList.value)
+  // console.log('da', rcmdMusicList.value)
 }
 const goSongListDetail = (row) => {
   router.push(`/SongList/SongListDetail/${row.id}`)

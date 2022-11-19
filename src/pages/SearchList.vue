@@ -46,7 +46,7 @@
               class="recommend-music"
               v-for="item in albumList?.albums"
               :key="item.id"
-              @click="goMV(item)"
+              @click="goAlbum(item)"
             >
               <img :src="item.blurPicUrl" alt="" />
               <div>{{ item.name }}</div>
@@ -103,7 +103,7 @@ onUpdated(() => {
 })
 const getSearchList = async () => {
   const res = (await searchApi(searchData.value)) as any
-  console.log(res)
+  // console.log(res)
   if (searchData.value.type === TABSTYE.value.HOTSONG) {
     seacrList.value = res.result.songs.map((item) => {
       return {
@@ -122,19 +122,19 @@ const getSearchList = async () => {
   } else if (searchData.value.type === TABSTYE.value.ALBUM) {
     albumList.value = res.result
   }
-  console.log('🚀', songListData.value)
-  console.log('🚀🚀', MVlist.value)
-  console.log('🚀🚀🚀', albumList.value)
+  // console.log('🚀', songListData.value)
+  // console.log('🚀🚀', MVlist.value)
+  // console.log('🚀🚀🚀', albumList.value)
 }
 
 const changepage = (size) => {
   searchData.value.offset = size
   getSearchList()
-  console.log('🚀', seacrList.value)
+  // console.log('🚀', seacrList.value)
 }
 const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event)
-  console.log(tab.paneName)
+  // console.log(tab, event)
+  // console.log(tab.paneName)
   searchData.value.type = tab.paneName
 }
 
@@ -144,6 +144,10 @@ const goMV = (row) => {
 
 const goSongListDetail = (row) => {
   router.push(`/SongList/SongListDetail/${row.id}`)
+}
+
+const goAlbum = (row) => {
+  router.push(`/SearchList/AlbumList/${row.id}`)
 }
 </script>
 <style scoped lang="less">

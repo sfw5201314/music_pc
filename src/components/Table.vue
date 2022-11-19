@@ -51,29 +51,37 @@ const props = defineProps({
 const emits = defineEmits(['changePage'])
 const musicUrl = ref()
 const store = musicStore()
-let { musicArrUrl, musicDetailArr } = storeToRefs(store)
-onMounted(() => {
-  console.log(props.tableData)
-})
+let { musicArrUrl, musicDetailArr, recentMusic } = storeToRefs(store)
+// onMounted(() => {
+//   console.log(props.tableData)
+// })
 const edit = (row) => {
-  console.log(row)
+  // console.log(row)
 }
+
+//双击歌曲播放url播放
 const rowClick = (row, column, event) => {
-  musicDetailArr?.value.push(row)
+  //把歌曲信息加到pinia里面的数组去
+  musicDetailArr.value.unshift(row)
+  recentMusic.value.push(row)
   // console.log(row.id)
   getUrl(row.id)
 }
+
+//获取歌曲url
 const getUrl = async (id) => {
   const res = await getMusicUrl(id)
   // console.log(res)
   musicUrl.value = res.data[0].url
-  console.log('url', musicUrl.value)
-  musicArrUrl.value.push(musicUrl.value)
+  // console.log('url', musicUrl.value)
+  //把URL添加到pinia的数组里面去
+  musicArrUrl.value.unshift(musicUrl.value)
   // console.log(store.$state.musicArrUrl, audioUrl.value)
 }
 
+//分页操作
 const changePageSize = (size) => {
-  console.log('🚀', size)
+  // console.log('🚀', size)
   emits('changePage', size)
 }
 </script>

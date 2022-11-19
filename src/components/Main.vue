@@ -3,7 +3,7 @@
     <div class="main">
       <div class="header">
         <div class="header-left">
-          <img src="./images/QQ截图20220521220541.png" alt="" />
+          <img src="" alt="" />
         </div>
         <div class="header-right">
           <div class="indicator_box">
@@ -46,7 +46,7 @@ import Drawer from '@/components/Drawer.vue'
 let searchObj = ref<SearchDataType>({
   keywords: ''
 })
-let historyMusicList = ref()
+let historyMusicList = ref<Array<any>>([])
 const DrawerRef = ref()
 // provide('searchList', searchList)
 const router = useRouter()
@@ -66,8 +66,9 @@ const search = () => {
 }
 
 const getHistoryMusicList = (list) => {
-  historyMusicList.value = list
-  console.log('传过来的', historyMusicList.value)
+  //使用new Set进行数组去重防止重复添加歌曲
+  historyMusicList.value = [...new Set(list)]
+  // console.log('传过来的', new Set(list), historyMusicList.value)
 }
 </script>
 <style lang="less" scoped>

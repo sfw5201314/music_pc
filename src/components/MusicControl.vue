@@ -2,11 +2,16 @@
   <div class="music-control">
     <div class="music-text">
       <div class="music-logo">
+        <!-- 生产模式这样引入 -->
+        <!-- <img
+          :src="musicDetail?.al?.picUrl ? musicDetail?.al?.picUrl : musicImg"
+          alt=""
+        /> -->
         <img
           :src="
             musicDetail?.al?.picUrl
               ? musicDetail?.al?.picUrl
-              : '/src/images/OpticalDisk.png'
+              : '../assets/images/OpticalDisk.png'
           "
           alt=""
         />
@@ -22,7 +27,7 @@
         </p>
       </div>
     </div>
-    <aplayer></aplayer>
+    <aplayer @music-detail="getDetail"></aplayer>
     <div class="icon_box">
       <el-icon @click="playList"><Operation /></el-icon>
     </div>
@@ -32,7 +37,8 @@
 import { onMounted, ref, watch } from 'vue'
 import aplayer from '../components/Audio.vue'
 import { musicStore } from '@/stores/music'
-
+//生产模式这样引入
+// import musicImg from '@/assets/images/OpticalDisk.png'
 const props = defineProps({
   boxRef: {
     type: Object,
@@ -44,34 +50,28 @@ const store = musicStore()
 const musicDetail = ref()
 const historyList = ref()
 onMounted(() => {
-  musicDetail.value =
-    store.$state.musicDetailArr[store.$state.musicDetailArr.length - 1]
-  historyList.value = store.$state.musicDetailArr
+  // musicDetail.value =
+  //   store.$state.musicDetailArr[store.$state.musicDetailArr.length - 1]
+  historyList.value = store.$state?.musicDetailArr
   emits('musicArr', historyList.value)
 })
+//监听store
 watch(store, (newValue, oldValue) => {
   // console.log('watch 已触发', 'new', newValue.$state, 'old', oldValue.$state)
-  musicDetail.value =
-    newValue.$state.musicDetailArr[newValue.$state.musicDetailArr.length - 1]
-  console.log(musicDetail.value)
-  historyList.value = newValue.$state.musicDetailArr
+  musicDetail.value = newValue.$state?.musicDetailArr?.[0]
+  // console.log(musicDetail.value)
+  historyList.value = newValue.$state?.musicDetailArr
   emits('musicArr', historyList.value)
 })
 const playList = () => {
-  console.log(props.boxRef)
+  // console.log(props.boxRef)
   props.boxRef.openDrawer()
 }
-const videoUpload = ref({
-  progress: false,
-  progressPercent: 0,
-  successPercent: 0,
-  music: {
-    title: '',
-    author: '',
-    url: '',
-    lrc: '[00:00.00]lrc here\n[00:01.00]aplayer'
-  }
-})
+
+//接收audio传递过来的信息
+const getDetail = (row) => {
+  musicDetail.value = row
+}
 </script>
 <style lang="scss" scoped>
 :deep(.el-icon) {

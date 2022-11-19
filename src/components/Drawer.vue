@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="el">
     <div class="history" v-if="table">
       <div class="list_header">
         <div>
@@ -16,12 +16,6 @@
           <Table :is-show="false" :table-data="historyList" />
         </div>
       </el-scrollbar>
-
-      <!-- <el-table :data="gridData">
-        <el-table-column property="date" label="Date" width="150" />
-        <el-table-column property="name" label="Name" width="200" />
-        <el-table-column property="address" label="Address" />
-      </el-table> -->
     </div>
   </div>
 </template>
@@ -31,6 +25,7 @@ import { onMounted, onUpdated, ref, watch } from 'vue'
 import Table from '@/components/Table.vue'
 import { musicStore } from '@/stores/music'
 import { storeToRefs } from 'pinia'
+import { onClickOutside } from '@vueuse/core'
 
 const store = musicStore()
 let { musicArrUrl, musicDetailArr } = storeToRefs(store)
@@ -48,7 +43,6 @@ onMounted(() => {
 })
 
 onUpdated(() => {
-  console.log('ccc', props.historyList)
   musicListHistory.value = props?.historyList
 })
 const openDrawer = () => {
@@ -56,11 +50,18 @@ const openDrawer = () => {
 }
 const remove = () => {
   //使用api批量更新
-  store.$patch((state) => {
-    state.musicArrUrl = []
-    state.musicDetailArr = []
+  store.$patch(() => {
+    musicArrUrl.value = []
+    musicDetailArr.value = []
   })
 }
+const el = ref()
+const close = () => {
+  if (table.value) {
+    table.value = false
+  }
+}
+onClickOutside(el, close)
 
 defineExpose({
   openDrawer
@@ -122,6 +123,9 @@ defineExpose({
     margin-right: 35px;
     display: flex;
     align-items: center;
+    span {
+      font-size: 14px;
+    }
   }
 }
 .icon_box:hover {
